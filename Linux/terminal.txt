@@ -1,0 +1,20 @@
+
+/dev/console
+
+  The kernel console was configured by "console=" boot option.
+  This option could be set multiple times for multiple consoles.
+
+  printk() output messages to the console device.
+
+
+/dev/tty0
+
+  tty[1-63] are virtual terminals.
+
+  Press Ctrl+Alt+Fn to switch to tty[n].
+
+
+/dev/ttyS0
+
+  This is the serial port console, and equals to tty0.
+

@@ -1,0 +1,14 @@
+
+gzip: initrd.img: unknown suffix -- ignored
+
+$ mv initrd.img initrd.img.gz
+$ gunzip initrd.img.gz
+
+
+
+Using tar to copy:
+
+## copy -ar /home/foo /home/bar
+$ mkdir /home/bar
+$ cd /home/foo
+$ tar cf - . | (cd /home/bar && tar xvf -)

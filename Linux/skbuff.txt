@@ -1,0 +1,140 @@
+struct sk_buff
+
+          High Memory
+  end  ->+----------------+
+         |                |
+  tail ->+----------------+ \
+         |                | |
+         |                | |
+         |                | | skb->len
+         |                | |
+         |                | |
+  data ->+----------------+ /
+         |                |
+  head ->+----------------+
+          Low Memory
+
+
+
+struct sk_buff *dev_alloc_skb(unsigned int length);
+
+                High Memory
+        end  ->+----------------+           \
+               |                |           |
+               |                |           |
+               |                |           |
+               |                |           |
+               |                |           | length (256-byte alignment)
+               |                |           |
+               |                |           |
+  data, tail ->+----------------+ \         |
+               |                | | 16-byte |
+        head ->+----------------+ /         /
+                Low Memory
+
+
+
+unsigned char *skb_put(struct sk_buff *skb, unsigned int len);
+
+          High Memory                   High Memory
+  end  ->+----------------+     end  ->+----------------+
+         |                |            |                |
+         |                |     tail ->+----------------+ \
+         |                |            |                | | +len
+         |                |            |                | |
+  tail ->+----------------+            |                | /
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+  data ->+----------------+     data ->+----------------+
+         |                |            |                |
+  head ->+----------------+     head ->+----------------+
+          Low Memory                    Low Memory
+
+  Return the tail address before put operation.
+
+
+
+unsigned char *skb_push(struct sk_buff *skb, unsigned int len);
+
+          High Memory                   High Memory
+  end  ->+----------------+     end  ->+----------------+
+         |                |            |                |
+  tail ->+----------------+     tail ->+----------------+
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+  data ->+----------------+            |                | \
+         |                |            |                | | +len
+         |                |            |                | |
+         |                |     data ->+----------------+ /
+         |                |            |                |
+  head ->+----------------+     head ->+----------------+
+          Low Memory                    Low Memory
+
+  Return the data address after push operation.
+
+
+
+unsigned char *skb_pull(struct sk_buff *skb, unsigned int len);
+
+          High Memory                   High Memory
+  end  ->+----------------+     end  ->+----------------+
+         |                |            |                |
+  tail ->+----------------+     tail ->+----------------+
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+         |                |            |                |
+         |                |     data ->+----------------+ \
+         |                |            |                | | +len
+         |                |            |                | |
+  data ->+----------------+            |                | /
+         |                |            |                |
+  head ->+----------------+     head ->+----------------+
+          Low Memory                    Low Memory
+
+  Return the data address after pull operation.
+
+
+
+void skb_trim(struct sk_buff *skb, unsigned int len);
+
+          High Memory                   High Memory
+  end  ->+----------------+     end  ->+----------------+
+         |                |            |                |
+  tail ->+----------------+            |                |
+         |                |            |                |
+         |                |            |                |
+         |                |     tail ->+----------------+ \
+         |                |            |                | |
+         |                |            |                | | len
+         |                |            |                | |
+         |                |            |                | |
+  data ->+----------------+     data ->+----------------+ /
+         |                |            |                |
+  head ->+----------------+     head ->+----------------+
+          Low Memory                    Low Memory
+
+
+
+void skb_reserve(struct sk_buff *skb, int len);
+
+          High Memory                   High Memory
+  end  ->+----------------+     end  ->+----------------+
+         |                |            |                |
+         |                |     tail ->+----------------+ \
+         |                |            |                | | +len
+         |                |            |                | |
+  tail ->+----------------+            |                | /
+         |                |            |                |
+         |                |     data ->+----------------+ \
+         |                |            |                | | +len
+         |                |            |                | |
+  data ->+----------------+            |                | /
+         |                |            |                |
+  head ->+----------------+     head ->+----------------+
+          Low Memory                    Low Memory
+

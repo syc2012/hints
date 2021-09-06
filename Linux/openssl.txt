@@ -1,0 +1,70 @@
+
+openssl verify [-CApath directory]
+               [-CAfile file]
+               [-purpose purpose]
+               [-untrusted file]
+               [-help]
+               [-issuer_checks]
+               [-verbose]
+               [-] [certificates] 
+
+## Verify certificate
+$ openssl verify -CAfile root.pem spooky.pem
+
+
+## Convert file format
+$ openssl x509 -inform PEM -in xxx.pem -outform DER -out xxx.der
+$ openssl x509 -inform DER -in xxx.der -outform PEM -out xxx.pem
+
+$ openssl x509 -modulus -inform DER -in certsigned.der
+
+
+## Generate RSA key
+$ openssl genrsa -out private_key.pem -f4 1024
+$ openssl rsa -in private_key.pem -pubout
+
+
+## Self-signed
+$ openssl req -new -x509 -key prikey.pem -out cacert.pem -days 7300
+
+$ openssl req -x509 -nodes -days 7300 \
+              -subj '/C=TW/ST=Taiwan/L=Taipei/CN=www.iii.org.tw' \
+              -newkey rsa:1024 -keyout root_prikey.pem \
+              -out root_cert.pem
+
+
+## Signed by CA
+$ openssl req -new -key xxx.pem -out xxx.csr
+$ openssl x509 -req \
+               -days 3650 \
+               -CA root_cert.pem \
+               -CAkey root_prikey.pem \
+               -in xxx.csr \
+               -out xxx.pem
+
+
+## Private key
+$ openssl pkcs8 -inform  DER
+                -in      00-20-A6-33-44-55.prv
+                -nocrypt
+                -outform PEM
+                -out     00-20-A6-33-44-55.pem
+
+
+## Extract public key
+$ openssl x509 -inform DER -in xxx.der -outform PEM -pubkey
+$ openssl x509 -inform PEM -in xxx.pem -outform PEM -pubkey
+
+
+## Check key pair
+$ openssl rsa -inform DER -in cert_public_key.der -inform PEM -in private_key.pem -check
+$ openssl rsa -inform PEM -in cert_public_key.pem -inform PEM -in private_key.pem -check
+
+
+## Public key encryption
+$ openssl rsautl -pubin -inkey cert_public_key.pem -encrypt -in xxx.in -out xxx.out
+
+
+## Private key decryption
+$ openssl rsautl -inkey private_key.pem -decrypt -in xxx.in -out xxx.out
+

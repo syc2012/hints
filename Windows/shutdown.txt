@@ -1,0 +1,9 @@
+
+## 登出
+> shutdown -i
+
+## 10秒後關機
+> shutdown -s -t 10
+
+## 重新開機
+> shutdown -r

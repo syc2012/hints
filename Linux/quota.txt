@@ -1,0 +1,11 @@
+## Check user's quota
+$ quota -s [-u username]
+
+## Edit user's quota
+$ edquota -u username
+
+## Copy user's quota to another user
+$ edquota -p username -u username2
+
+## Print a summarized report
+$ repquota -a

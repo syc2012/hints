@@ -1,0 +1,23 @@
+Standard Input/Output device node:
+
+  /dev/fd/0  stdin
+  /dev/fd/1  stdout
+  /dev/fd/2  stderr
+
+
+Output re-direct example:
+
+## Write the output message to a file
+$ command... > output.log
+
+## Write the error message to a file
+$ command... 2> error.log
+
+## Discard the error message
+$ command... 2> /dev/null
+
+## Write the output and error message to a file
+$ command... > all.log 2>&1
+
+## Write the output message to a file and the error message to the terminal
+$ command... 2>&1 > output.log

@@ -1,0 +1,35 @@
+
+Text attributes:
+
+    {ESC}[0m    0    All attributes off    {ESC}[m
+    {ESC}[1m    1    Bold on               {ESC}[m
+    {ESC}[4m    4    Underscore            {ESC}[m
+    {ESC}[5m    5    Blink on              {ESC}[m
+    {ESC}[7m    7    Reverse video on      {ESC}[m
+
+
+
+Foreground colors:
+
+    {ESC}[30m    30 Black      {ESC}[1m Bright Black      {ESC}[m
+    {ESC}[31m    31 Red        {ESC}[1m Bright Red        {ESC}[m
+    {ESC}[32m    32 Green      {ESC}[1m Bright Green      {ESC}[m
+    {ESC}[33m    33 Yellow     {ESC}[1m Bright Yellow     {ESC}[m
+    {ESC}[34m    34 Blue       {ESC}[1m Bright Blue       {ESC}[m
+    {ESC}[35m    35 Magenta    {ESC}[1m Bright Magenta    {ESC}[m
+    {ESC}[36m    36 Cyan       {ESC}[1m Bright Cyan       {ESC}[m
+    {ESC}[37m    37 White      {ESC}[1m Bright White      {ESC}[m
+
+
+
+Background colors:
+
+    {ESC}[40m      40 Black      {ESC}[m
+    {ESC}[41m      41 Red        {ESC}[m
+    {ESC}[42m      42 Green      {ESC}[m
+    {ESC}[43m      43 Yellow     {ESC}[m
+    {ESC}[44m      44 Blue       {ESC}[m
+    {ESC}[45m      45 Magenta    {ESC}[m
+    {ESC}[46m      46 Cyan       {ESC}[m
+    {ESC}[1;47m    47 White      {ESC}[m
+

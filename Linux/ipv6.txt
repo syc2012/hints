@@ -1,0 +1,67 @@
+## Enable IPv6
+$ vi /etc/sysconfig/network
+NETWORKING_IPv6=yes
+
+
+## Configure the network device
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+
+IPV6INIT=yes
+IPV6ADDR=****:C000:0:2:0:0:0:3/64
+IPV6_AUTOCONF=no
+
+
+## Re-start network service
+$ sudo service network restart
+
+
+## Display the IPv6 kernel routing table
+$ route -A inet6
+
+
+## Setup IPv6 name-server
+$ vi /etc/resolv.conf
+
+;Hurricane Electric IPv6+IPv4 public Anycast DNS
+;
+nameserver 2001:470:20::2
+nameserver 74.82.42.42
+;
+;GBLX public ipv6
+nameserver 2001:450:2005::
+;
+;Google Public DNS ipv4 & AAAA records
+nameserver 8.8.8.8
+nameserver 4.4.4.4 
+
+
+## Test the IPv6 connectivity
+$ ping6 -I eth0 ipv6.google.com
+$ traceroute6 www.6bone.net
+
+
+## Enable the IPv6 forwarding
+$ sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+
+## IP address management
+$ ip -6 addr show
+$ ip -6 addr add <ipv6_address>/<prefix_length> dev <interface>
+$ ip -6 addr del <ipv6_address>/<prefix_length> dev <interface>
+
+
+## Routing management
+$ ip -6 route show
+$ ip -6 route add <ipv6_network>/<prefix_length> via <ipv6_address>
+$ ip -6 route del <ipv6_network>/<prefix_length> via <ipv6_address>
+$ ip -6 route add <ipv6_network>/<prefix_length> dev <interface>
+$ ip -6 route del <ipv6_network>/<prefix_length> dev <interface>
+
+
+## Neighbor management
+$ ip -6 neigh show
+
+
+## Domain name lookup
+$ nslookup -type=aaaa www.google.com.tw
+$ ping6 -n www.google.com.tw

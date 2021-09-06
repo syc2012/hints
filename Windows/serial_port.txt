@@ -1,0 +1,9 @@
+
+清除無用的 serial port:
+
+
+## 啟動裝置管理員
+> devmgmt.msc
+
+  檢視 -> 顯示隱藏裝置 (Show hidden devices)
+
