@@ -1,0 +1,6 @@
+Win + D    Display or hide the desktop.
+Win + E    Open the file explorer.
+Win + L    Lock screen.
+Win + R    Open the execution dialog.
+
+Ctrl + Shift + Esc    Open the task manager.

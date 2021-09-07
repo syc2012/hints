@@ -1,0 +1,21 @@
+Clean white space:
+
+:%s/ *$//
+
+
+
+Remove CR/LF at the end of a line:
+
+:%s/$\n/ /
+
+
+
+Delete each line begin with "FOOBAR":
+
+:%s/^FOOBAR.*\n//
+
+
+
+Push anything after "FOOBAR" to next line:
+
+:%s/FOOBAR/FOOBAR\n/

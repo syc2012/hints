@@ -8,7 +8,7 @@ $ gunzip initrd.img.gz
 
 Using tar to copy:
 
-## copy -ar /home/foo /home/bar
-$ mkdir /home/bar
-$ cd /home/foo
-$ tar cf - . | (cd /home/bar && tar xvf -)
+## copy -ar /path_of_source /path_of_target
+$ mkdir /path_of_target
+$ cd /path_of_source
+$ tar cf - * | (cd /path_of_target; tar xvf -)

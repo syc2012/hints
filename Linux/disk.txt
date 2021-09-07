@@ -1,0 +1,9 @@
+
+## Report file system disk space usage
+$ df -h
+
+## Report file space usage
+$ du -h DIR_OR_FILE
+
+## View all disk partitions
+$ sudo fdisk -l
