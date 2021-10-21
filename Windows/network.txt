@@ -1,0 +1,27 @@
+
+## 查詢 IP address
+> netsh interface ip show address
+
+## 設定 IP address
+> netsh interface ip set address "區域連線" static 192.168.2.100 255.255.255.0
+
+## 設定路由
+> netsh interface ip set address "區域連線" ga=192.168.2.1 gw=1
+
+## 設定 DHCP
+> netsh interface ip set address "區域連線" source=dhcp
+
+## 設定 DNS
+> netsh interface ip set dnsservers "區域連線" static 8.8.8.8 primary
+
+## 查詢 MTU
+> netsh interface ipv4 show subinterfaces
+
+## 修改 MTU
+> netsh interface ipv4 set subinterface "區域連線" mtu=9000 store=persistent
+
+## 匯出網路設定
+> netsh -c interface dump > C:\netset.txt
+
+## 匯入網路設定
+> netsh -f C:\netset.txt

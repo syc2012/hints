@@ -1,0 +1,9 @@
+
+## mount CD-ROM
+$ sudo mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom
+
+## mount ISO (.iso file)
+$ mount -t iso9660 -o loop /path_to/file_name.iso /mnt/temp
+
+## mount USB flash driver
+$ mount -t vfat -o iocharset=big5 /dev/sda1 /mnt/usb
