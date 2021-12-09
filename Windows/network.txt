@@ -25,3 +25,6 @@
 
 ## 匯入網路設定
 > netsh -f C:\netset.txt
+
+## 顯示所有的網路介面卡
+> getmac /v

@@ -1,0 +1,26 @@
+## 以系統管理員身份執行
+> diskpart
+
+
+## 顯示所有磁碟
+DISKPART> list disk
+
+## 顯示所有磁碟區 (C, D, ...)
+DISKPART> list volume
+
+## 顯示指定磁碟的磁碟分割
+DISKPART> select disk 0
+DISKPART> list partition
+
+## 清除指定磁碟的磁碟分割
+DISKPART> select disk 1
+DISKPART> clean
+
+## 在指定磁碟上建立主要分割磁區
+DISKPART> select disk 1
+DISKPART> create partition primary
+DISKPART> format fs=ntfs
+DISKPART> assign
+
+
+DISKPART> exit

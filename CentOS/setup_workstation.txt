@@ -1,0 +1,273 @@
+1. 安裝 expect 套件.
+    1) yum install expect
+    2) 新增 myadduser.exp
+       #!/usr/bin/expect
+
+       set USERID [lindex $argv 0]
+       set PASSWD $USERID
+       set PASSWDPADDING 123@
+       set GROUPID alifecom
+       puts "USERID = $USERID"
+       puts "PASSWD = $PASSWD$PASSWDPADDING"
+       puts "GROUPID = $GROUPID"
+       set PASSWD $PASSWD$PASSWDPADDING
+
+       spawn /usr/sbin/adduser -d /home/$USERID $USERID -g $GROUPID
+       expect eof
+
+       spawn passwd $USERID
+       expect "password:"
+       send "$PASSWD\r"
+       expect "password:"
+       send "$PASSWD\r"
+       expect eof
+
+       spawn /usr/bin/pdbedit -a $USERID
+       expect "password:"
+       send "$PASSWD\r"
+       expect "password:"
+       send "$PASSWD\r"
+       expect eof
+
+       spawn /usr/sbin/setquota -u $USERID 5000000 5000000 0 0 /home
+       expect eof
+
+2. 啟動 Quota.
+    1) vi /etc/fstab: 修改 /etc/fstab.
+        LABEL=/home  /home  ext3  defaults  1  2
+        --->
+        LABEL=/home  /home  ext3  defaults,usrquota,grpquota  1  2
+        [Notes] defaults, usrquota, grpquota 單字和 ',' 之間不能有空格.
+    2) reboot: 新的設定值才能驅動.
+    3) quotacheck -avug
+        1> 檢查 /home 裡有沒有多兩個檔案 aquota.group 和 aquota.user.
+    4) quotaon -avug: 啟動 Quota.
+    5) edquota -u <user_name>: 執行這行指命後, 會自動開啟 vi 以設定 Quota 值.
+        1> 修改 soft 的值為 5000000 (單位為 KB, 5GB).
+        [Notes] 一開始需以一般方法建立一個使用者, 然後設定這個使用者的 Quota, 
+                之後會把這個使用者的設定值拷貝給其他使用者, 本例為 wisemark.
+        2> repquota -a: 顯示所有使用者的設定值.
+    6) vi /etc/rc.d/rc.local: 使開機時預設啟動 Quota.
+        1> 加入 quotaon -avug。
+
+3. 啟動 Samba Server.
+    1) setup: 啟動圖形設定畫面 (or 直接從 GUI 設定).
+        1> setup: [System services] ---> [*]smb ---> [Ok] ---> [Run Tool]
+        2> sync; reboot
+    2) vi /etc/samba/smb.conf ('#'和';'為註解符號)
+        1> [global]
+           log file = /var/log/samba/%m.log
+           max log size = 50
+           security = user
+           passdb backend = tdbsam
+           ##
+           log level = 0
+           read raw = yes
+           write raw = yes
+           oplocks = no
+           max xmit = 65535
+           dead time = 15
+           getwd cache = yes
+           lpq cache = 30
+           socket options = TCP_NODELAY IPTOS_LOWDELAY
+           ##
+        2> [homes]
+           comment = Home Directories
+           browseable = no
+           writeable = yes
+           valid users = %S
+           create mode = 0664
+           directory mode = 0775
+
+           [tftpboot]
+           path = /tftpboot
+           writeable = yes
+           browseable = yes
+           guest ok = yes
+
+           [tmp]
+           path = /tmp
+           writeable = yes
+           browseable = yes
+           guest ok = yes
+
+    3) service smb restart
+        1> setsebool -P samba_enable_home_dirs on: 如果 SELinux 有開且需要分享
+           每個使用者的家目錄的話需執行之, 並把這行加入 /etc/rc.d/rc.local 中.
+    4) smbpasswd -a wisemark: 設定使用者的 Samba 密碼, 該使用者需先建立 Linux 
+                              帳號.
+        1> pdbedit -uv wisemark: 確定有加入成功.
+    5) 在 Windows 下搜尋 \\<IP>\<user_name>, 本例: \\192.168.8.28\wisemark.
+
+4. 新增其他使用者.
+    1) expect
+    2) expect1.1> ./myadduser.exp <user_name>: 新增使用者.
+    3) exit
+    4) [Notes]: SSH 和 Samba 密碼預設為 <user_name>123@
+
+5. 啟動 TFTP.
+    1) yum install tftp-server:
+        安裝 TFTP 套件, 此套件相依於 xinetd 套件.
+        [Notes] 注意 firewall 和 SELinux, 如果有開, 可能會不能運作.
+    2) mkdir /tftpboot
+    3) vi /etc/xinetd.d/tftp: 修改下載路徑
+        1> server_args = -s /tftpboot
+
+6. 編輯 /etc/profile, /etc/sudoers, /etc/bashrc, /etc/inittab
+    1) vi /etc/profile: 增加搜尋路徑.
+        1> export PATH=$PATH:/opt/timesys/toolchains/i686-linux/bin
+           export PATH=$PATH:/opt/timesys/toolchains/armv5b-linux/bin
+           export PATH=$PATH:/opt/timesys/toolchains/ppc85xx-linux/bin
+           export SVN_EDITOR=vim
+           export http_proxy=http://proxy.iii.org.tw:3128
+
+    2) vi /etc/bashrc: 新增別名.
+        1> alias vi='vim'
+        2> alias ll='ls -al --color'
+
+    3) vi /etc/sudoers: 
+        1> 使群組中其他使用者可以使用 sudo, 本例為 wimax 群組.
+           %wimax  ALL=(ALL)  ALL
+
+    4) vi /etc/inittab: 設定開機為 text mode.
+        1> id:3:initdefault:
+
+7. 啟動 NFS.
+    1) vi /etc/exports
+        1> /home  *(rw,no_root_squash,sync,insecure) : 分享 /home 出去.
+    2) chown root:wimax /home : 修改 /home 的群組.
+    3) service nfs restart : 重新啟動NFS服務.
+    4) showmount -e localhost : 檢查是否有把 /home 開放出來.
+    5) sudo mount -t nfs -o nolock 192.168.8.28:/home/chchen ./temp : 檢查是否成功.
+    6) sudo umount temp
+
+8. 啟動 FTP (pure-ftpd).
+    1) 因為用 yum 找不到 pure-ftpd, 所以編 source code.
+    2) 下載 pure-ftpd-1.0.21.tar.bz2 到 /root.
+    3) tar jxvf pure-ftpd-1.0.21.tar.bz2: 解壓縮.
+    4) cd pure-ftpd-1.0.21
+    5) ./configure
+    6) make install-strip
+    7) cd configuration-files
+    8) cp pure-ftpd.conf /etc
+    9) vi /etc/pure-ftpd.conf
+        1> ChrootEveryone no ---> ChrootEveryone yes # 讓使用者只能登入到各自的
+           家目錄.
+        2> NoAnonymous no ---> NoAnonymous yes # 不允許匿名登入.
+    10) chmod 755 pure-config.pl
+    11) ./pure-config.pl /etc/pure-ftpd.conf
+    12) cp ./pure-config.pl /usr/local/sbin/
+    13) vi /etc/rc.local
+        1> 新增 /usr/local/sbin/pure-config.pl /etc/pure-ftpd.conf: reboot
+           之後才會重新啟動 FTP.
+
+9. 下載 toolchain.
+    1) 下載位置 \\140.92.62.144\tools\develop_tools\cross_compile_under_linux.
+    2) tar -xvf ppc85xx-linux.tar: 解壓縮到 /opt/timesys/toolchains/ppc85xx-linux.
+       tar -xvf armv5b-linux.tar: 解壓縮到 /opt/timesys/toolchains/armv5b-linux.
+       tar -xvf i686-linux.tar: 解壓縮到 /opt/timesys/toolchains/i686-linux.
+    3) 查看toolchain的路徑設定
+       $(CROSS)gcc -print-search-dirs
+
+10. 開啟 NTP service
+    1) vi /etc/ntp.conf
+        1> 新增下行:
+           restrict 192.168.8.0 mask 255.255.255.0 nomodify notrap
+        2> disabled 下列幾行, 因為內部網域連不到外面, 所以也沒有去更新的必要。
+           #server 0.rhel.pool.ntp.org
+           #server 1.rhel.pool.ntp.org
+           #server 2.rhel.pool.ntp.org
+           #restrict 0.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
+           #restrict 1.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
+           #restrict 2.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
+    2) 檢查 /etc/services ---> ntp    123/tcp
+                             > ntp    123/udp
+    3) 檢查 /etc/init.d/ntpd ---> 存在
+    4) 檢查 chkconfig --list | grep ntpd ---> 存在
+        1> 如果 3:off
+            chkconfig --level 3 ntpd on
+            再檢查 chkconfig --list | grep ntpd ---> 3:on
+    5) 不想重開機的話 /etc/init.d/ntpd start
+
+11. 設定時區為Taipei
+    1) cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+    2) vi /etc/sysconfig/clock
+        1> 修改如下:
+           ZONE="Asia/Taipei"
+           UTC=true
+           ARC=false
+
+12. 設定SELinux
+    1) vi /etc/sysconfig/selinux
+        1> SELinux設定檔範例:
+           # This file controls the state of SELinux on the system.
+           # SELINUX= can take one of these three values:
+           #     enforcing - SELinux security policy is enforced.
+           #     permissive - SELinux prints warnings instead of enforcing.
+           #     disabled - No SELinux policy is loaded.
+           SELINUX=enforcing
+           # SELINUXTYPE= can take one of these two values:
+           #     targeted - Targeted processes are protected,
+           #     mls - Multi Level Security protection.
+           SELINUXTYPE=targeted
+    2) getenforce
+
+13. 禁止root以SSH方式登入
+    1) vi /etc/ssh/sshd_config
+        1> 修改參數 PermitRootLogin:
+           #PermitRootLogin yes
+           PermitRootLogin no
+    2) service sshd reload
+
+14. 設定網路
+    1) vi /etc/sysconfig/network-scripts/ifcfg-eth0
+        1> 網路卡設定檔範例:
+           DEVICE="eth0"
+           NM_CONTROLLED="yes"
+           ONBOOT=yes
+           TYPE=Ethernet
+           BOOTPROTO=none
+           IPADDR=192.168.2.2
+           GATEWAY=192.168.2.1
+           IPV6INIT=no
+           UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
+           HWADDR=54:04:A6:F3:A0:80
+    2) vi /etc/resolv.conf
+        1> DNS設定檔範例:
+           # Generated by NetworkManager
+           nameserver 168.95.1.1
+    3) vi /etc/sysconfig/network
+        1> 主機名稱設定檔範例:
+           NETWORKING=yes
+           HOSTNAME=MY_WORKSTATION_NAME
+    4) vi /etc/hosts
+        1> 私有IP對應設定檔範例:
+           # [IP address]   [hostname]            [alias]
+           127.0.0.1        MY_WORKSTATION_NAME   localhost
+           ::1              MY_WORKSTATION_NAME   localhost
+    5) service network restart
+
+15. 關閉不需要的服務
+    1) 檢視所有服務
+       service --status-all
+       chkconfig --list
+    2) 關閉 Web server
+       sudo chkconfig httpd off
+    3) 關閉 DHCP server
+       sudo chkconfig dhcpd off
+       sudo chkconfig dhcpd6 off
+    4) 關閉 iptables
+       sudo chkconfig iptables off
+       sudo chkconfig ip6tables off
+    5) 關閉 radvd
+       sudo chkconfig radvd off
+
+16. 個人化設定
+    1) vi ~/.bashrc
+        alias grep='grep --color'
+    1) vi ~/.bash_profile
+        PATH=$PATH:/usr/local/bin:/usr/local/sbin:$HOME/bin
+        export PATH
+        export PS1="[\u: \w]\n\$ "
+
+

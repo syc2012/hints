@@ -1,0 +1,70 @@
+[1] Checkout
+
+mkdir svn_test
+cd svn_test
+svn co svn://192.168.2.101/test
+
+
+[2] SVN repository list
+
+svn://192.168.2.101/test
+
+
+[3] Change server IP
+
+cd svn_test/test
+svn info
+svn switch --relocate svn://192.168.3.168/test svn://192.168.2.101/test
+
+
+[4] Edit properties
+
+svn propset svn:executable ON <file_name>
+svn propdel svn:executable <file_name>
+
+
+[5] Create a new SVN repository
+
+## login as admin
+cd /volume1/svn
+svnadmin create test
+vi test/conf/svnserve.conf
+vi passwd
+vi authz
+
+
+[6] Delete a SVN repository
+cd /volume1/svn
+rm -rf test
+
+
+[7] Associate with WebSVN
+
+## login as admin
+cd /volume1/web/websvn-2.3.2
+vi include/config.php
+
+
+[8] Add a tag
+
+## tag revision 344 as the release version 1.00
+svn cp -r 344 http://192.168.2.101/project/trunk http://192.168.2.101/project/tags/1.00
+
+
+[9] Create a branch
+
+## Create a branch from trunk
+svn cp http://192.168.2.101/project/trunk http://192.168.2.101/project/branches/debug -m 'Branch project for debug'
+
+
+[10] Backup and restore
+
+## backup a repository
+svnadmin dump /volume1/svn/test/ > test_repos.dump
+
+## restore a repository
+cd /volume2/svn
+svnadmin create test
+svnadmin load /volume2/svn/test < test_repos.dump
+chmod own.own /volume1/svn/test -R
+
