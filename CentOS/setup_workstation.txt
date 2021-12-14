@@ -6,7 +6,7 @@
        set USERID [lindex $argv 0]
        set PASSWD $USERID
        set PASSWDPADDING 123@
-       set GROUPID alifecom
+       set GROUPID wimax
        puts "USERID = $USERID"
        puts "PASSWD = $PASSWD$PASSWDPADDING"
        puts "GROUPID = $GROUPID"
