@@ -16,7 +16,25 @@ struct sk_buff
 
 
 
-struct sk_buff *dev_alloc_skb(unsigned int length);
+struct sk_buff *alloc_skb(unsigned int size, gfp_t priority);
+
+                      High Memory
+              end  ->+----------------+ \
+                     |                | |
+                     |                | |
+                     |                | |
+                     |                | |
+                     |                | | size (256-byte alignment)
+                     |                | |
+                     |                | |
+                     |                | |
+                     |                | |
+  head, data, tail ->+----------------+ /
+                      Low Memory
+
+
+
+struct sk_buff *dev_alloc_skb(unsigned int size);
 
                 High Memory
         end  ->+----------------+           \
@@ -24,7 +42,7 @@ struct sk_buff *dev_alloc_skb(unsigned int length);
                |                |           |
                |                |           |
                |                |           |
-               |                |           | length (256-byte alignment)
+               |                |           | size (256-byte alignment)
                |                |           |
                |                |           |
   data, tail ->+----------------+ \         |

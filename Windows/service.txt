@@ -1,0 +1,19 @@
+
+## 列出啟動中的服務
+> net start
+
+## 停止服務
+> net stop SERVICENAME
+
+## 啟動服務
+> net start SERVICENAME
+
+## 設定服務為停用
+> sc config SERVICENAME start= disabled
+
+## 設定服務為啟用
+> sc config SERVICENAME start= demand
+
+## 設定服務為自動啟動
+> sc config SERVICENAME start= auto
+

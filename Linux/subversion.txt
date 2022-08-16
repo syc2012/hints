@@ -14,7 +14,7 @@ svn://192.168.2.101/test
 
 cd svn_test/test
 svn info
-svn switch --relocate svn://192.168.3.168/test svn://192.168.2.101/test
+svn switch --relocate svn://192.168.3.88/test svn://192.168.2.101/test
 
 
 [4] Edit properties
@@ -38,26 +38,30 @@ cd /volume1/svn
 rm -rf test
 
 
-[7] Associate with WebSVN
+[7] List modified files
+svn status -q
+
+
+[8] Associate with WebSVN
 
 ## login as admin
 cd /volume1/web/websvn-2.3.2
 vi include/config.php
 
 
-[8] Add a tag
+[9] Add a tag
 
 ## tag revision 344 as the release version 1.00
 svn cp -r 344 http://192.168.2.101/project/trunk http://192.168.2.101/project/tags/1.00
 
 
-[9] Create a branch
+[10] Create a branch
 
 ## Create a branch from trunk
 svn cp http://192.168.2.101/project/trunk http://192.168.2.101/project/branches/debug -m 'Branch project for debug'
 
 
-[10] Backup and restore
+[11] Backup and restore
 
 ## backup a repository
 svnadmin dump /volume1/svn/test/ > test_repos.dump

@@ -1,0 +1,23 @@
+
+[ Server ]
+
+## share the directory /home/test
+$ vi /etc/exports
+
+/home/test *(rw,no_root_squash,sync,insecure)
+
+## re-start NFS
+$ service nfs restart
+
+## check NFS in the local
+$ showmount -e 127.0.0.1
+
+
+[ Client ]
+
+## check NFS in the remote
+$ showmount -e SERVER_IP
+
+## mount the shared directory
+$ mount -t nfs SERVER_IP:/home/test MOUNT_POINT
+

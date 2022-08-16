@@ -1,0 +1,3 @@
+
+## extracting .rpm file using combination of rpm2cpio and cpio command
+$ rpm2cpio example.rpm | cpio -idmv
