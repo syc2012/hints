@@ -1,0 +1,12 @@
+The Linux Kernel documentation
+https://docs.kernel.org/
+
+
+## Command line parameters
+Documentation/admin-guide/kernel-parameters.txt
+
+## Device node number
+Documentation/admin-guide/devices.txt
+
+## Device tree examples
+Documentation/devicetree/bindings/

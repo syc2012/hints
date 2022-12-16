@@ -1,0 +1,104 @@
+
+## update list of available packages
+sudo apt update
+
+## install packages
+sudo apt install PACKAGE_NAME
+
+## remove packages
+sudo apt remove PACKAGE_NAME
+
+## search in package descriptions
+apt search PACKAGE_NAME
+apt-cache search PACKAGE_NAME
+
+## list available version of package
+apt-cache policy PACKAGE_NAME
+
+
+## install GCC compiler (gcc, g++, make)
+sudo apt install build-essential
+sudo apt install manpages-dev
+
+## install Flex and Bison
+sudo apt install flex
+sudo apt install bison
+
+## install libtool
+sudo apt install autoconf
+sudo apt install libtool
+sudo apt install libtool-bin
+
+## install OpenSSL library
+sudo apt install libssl-dev
+
+## install ncurses library
+sudo apt install libncurses-dev
+
+## install pthread library
+sudo apt install libpthread-stubs0-dev
+
+## install XML library
+sudo apt install libxml2-dev
+
+## install PC/SC library
+sudo apt install libpcsclite-dev
+
+## install mingw-w64 compiler
+sudo apt install mingw-w64
+
+
+## install TFTP
+sudo apt install tftp
+sudo apt install tftpd
+sudo apt install xinetd
+
+sudo vi /etc/xinetd.d/tftp
+service tftp
+{
+    protocol    = udp
+    port        = 69
+    socket_type = dgram
+    wait        = yes
+    user        = nobody
+    server      = /usr/sbin/in.tftpd
+    server_args = /tftpboot
+    disable     = no
+}
+
+sudo mkdir /tftpboot
+sudo chmod 777 /tftpboot
+sudo /etc/init.d/xinetd restart
+
+
+## install Samba
+sudo apt install samba
+
+sudo systemctl status nmbd
+sudo vi /etc/samba/smb.conf
+[tftpboot]
+   comment = TFTP boot directory
+   path = /tftpboot
+   browseable = yes
+   read only = no
+   guest ok = no
+
+sudo smbpasswd -a USERNAME
+sudo systemctl restart smbd.service
+
+
+## install SVN client
+sudo apt install subversion
+
+## install indent
+sudo apt install indent
+
+## install tree
+sudo apt install tree
+
+## install htop
+sudo apt install htop
+
+## install ntpdate
+sudo apt install ntpdate
+

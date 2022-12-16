@@ -1,0 +1,25 @@
+
+## extract .deb package
+$ ar x FILE_NAME.deb
+
+
+## adjust .bashrc
+$ vi ~/.bashrc
+PS1="[\u: \w]\n\$ "
+alias ll='ls -l'
+alias sudo='sudo '
+
+
+## language setting
+$ locale
+$ sudo dpkg-reconfigure locales
+
+
+## check version
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.4 LTS
+Release:        20.04
+Codename:       focal
+

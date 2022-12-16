@@ -1,0 +1,5 @@
+## md5
+> certutil -hashfile FILENAME md5
+
+## sha256
+> certutil -hashfile FILENAME SHA256

@@ -1,0 +1,20 @@
+
+## add an user with sudo group
+sudo adduser USER
+sudo adduser USER sudo
+
+## set user's login password
+sudo passwd USER
+
+
+## set Samba username and password
+sudo smbpasswd -a USER
+
+
+## hide an user from login screen
+sudo ls -l /var/lib/AccountsService/users/
+sudo cp /var/lib/AccountsService/users/foo /var/lib/AccountsService/users/bar
+
+[User]
+SystemAccount=true
+
