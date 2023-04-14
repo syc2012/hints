@@ -1,16 +1,15 @@
-1. ¦w¸Ë expect ®M¥ó.
+1. å®‰è£ expect å¥—ä»¶
     1) yum install expect
-    2) ·s¼W myadduser.exp
+    2) æ–°å¢ myadduser.exp
        #!/usr/bin/expect
 
        set USERID [lindex $argv 0]
-       set PASSWD $USERID
        set PASSWDPADDING 123@
-       set GROUPID wimax
+       set PASSWD $USERID$PASSWDPADDING
+       set GROUPID $USERID
        puts "USERID = $USERID"
-       puts "PASSWD = $PASSWD$PASSWDPADDING"
+       puts "PASSWD = $PASSWD"
        puts "GROUPID = $GROUPID"
-       set PASSWD $PASSWD$PASSWDPADDING
 
        spawn /usr/sbin/adduser -d /home/$USERID $USERID -g $GROUPID
        expect eof
@@ -32,29 +31,29 @@
        spawn /usr/sbin/setquota -u $USERID 5000000 5000000 0 0 /home
        expect eof
 
-2. ±Ò°Ê Quota.
-    1) vi /etc/fstab: ­×§ï /etc/fstab.
+2. å•Ÿå‹• Quota
+    1) vi /etc/fstab: ä¿®æ”¹ /etc/fstab.
         LABEL=/home  /home  ext3  defaults  1  2
         --->
         LABEL=/home  /home  ext3  defaults,usrquota,grpquota  1  2
-        [Notes] defaults, usrquota, grpquota ³æ¦r©M ',' ¤§¶¡¤£¯à¦³ªÅ®æ.
-    2) reboot: ·sªº³]©w­È¤~¯àÅX°Ê.
+        [Notes] defaults, usrquota, grpquota å–®å­—å’Œ ',' ä¹‹é–“ä¸èƒ½æœ‰ç©ºæ ¼.
+    2) reboot: æ–°çš„è¨­å®šå€¼æ‰èƒ½é©…å‹•.
     3) quotacheck -avug
-        1> ÀË¬d /home ¸Ì¦³¨S¦³¦h¨â­ÓÀÉ®× aquota.group ©M aquota.user.
-    4) quotaon -avug: ±Ò°Ê Quota.
-    5) edquota -u <user_name>: °õ¦æ³o¦æ«ü©R«á, ·|¦Û°Ê¶}±Ò vi ¥H³]©w Quota ­È.
-        1> ­×§ï soft ªº­È¬° 5000000 (³æ¦ì¬° KB, 5GB).
-        [Notes] ¤@¶}©l»İ¥H¤@¯ë¤èªk«Ø¥ß¤@­Ó¨Ï¥ÎªÌ, µM«á³]©w³o­Ó¨Ï¥ÎªÌªº Quota, 
-                ¤§«á·|§â³o­Ó¨Ï¥ÎªÌªº³]©w­È«ş¨©µ¹¨ä¥L¨Ï¥ÎªÌ, ¥»¨Ò¬° wisemark.
-        2> repquota -a: Åã¥Ü©Ò¦³¨Ï¥ÎªÌªº³]©w­È.
-    6) vi /etc/rc.d/rc.local: ¨Ï¶}¾÷®É¹w³]±Ò°Ê Quota.
-        1> ¥[¤J quotaon -avug¡C
+        1> æª¢æŸ¥ /home è£¡æœ‰æ²’æœ‰å¤šå…©å€‹æª”æ¡ˆ aquota.group å’Œ aquota.user.
+    4) quotaon -avug: å•Ÿå‹• Quota.
+    5) edquota -u <user_name>: åŸ·è¡Œé€™è¡ŒæŒ‡å‘½å¾Œ, æœƒè‡ªå‹•é–‹å•Ÿ vi ä»¥è¨­å®š Quota å€¼.
+        1> ä¿®æ”¹ soft çš„å€¼ç‚º 5000000 (å–®ä½ç‚º KB, 5GB).
+        [Notes] ä¸€é–‹å§‹éœ€ä»¥ä¸€èˆ¬æ–¹æ³•å»ºç«‹ä¸€å€‹ä½¿ç”¨è€…, ç„¶å¾Œè¨­å®šé€™å€‹ä½¿ç”¨è€…çš„ Quota, 
+                ä¹‹å¾ŒæœƒæŠŠé€™å€‹ä½¿ç”¨è€…çš„è¨­å®šå€¼æ‹·è²çµ¦å…¶ä»–ä½¿ç”¨è€….
+        2> repquota -a: é¡¯ç¤ºæ‰€æœ‰ä½¿ç”¨è€…çš„è¨­å®šå€¼.
+    6) vi /etc/rc.d/rc.local: ä½¿é–‹æ©Ÿæ™‚é è¨­å•Ÿå‹• Quota.
+        1> åŠ å…¥ quotaon -avugã€‚
 
-3. ±Ò°Ê Samba Server.
-    1) setup: ±Ò°Ê¹Ï§Î³]©wµe­± (or ª½±µ±q GUI ³]©w).
+3. å•Ÿå‹• Samba Server
+    1) setup: å•Ÿå‹•åœ–å½¢è¨­å®šç•«é¢ (or ç›´æ¥å¾ GUI è¨­å®š).
         1> setup: [System services] ---> [*]smb ---> [Ok] ---> [Run Tool]
         2> sync; reboot
-    2) vi /etc/samba/smb.conf ('#'©M';'¬°µù¸Ñ²Å¸¹)
+    2) vi /etc/samba/smb.conf ('#'å’Œ';'ç‚ºè¨»è§£ç¬¦è™Ÿ)
         1> [global]
            log file = /var/log/samba/%m.log
            max log size = 50
@@ -92,114 +91,107 @@
            guest ok = yes
 
     3) service smb restart
-        1> setsebool -P samba_enable_home_dirs on: ¦pªG SELinux ¦³¶}¥B»İ­n¤À¨É
-           ¨C­Ó¨Ï¥ÎªÌªº®a¥Ø¿ıªº¸Ü»İ°õ¦æ¤§, ¨Ã§â³o¦æ¥[¤J /etc/rc.d/rc.local ¤¤.
-    4) smbpasswd -a wisemark: ³]©w¨Ï¥ÎªÌªº Samba ±K½X, ¸Ó¨Ï¥ÎªÌ»İ¥ı«Ø¥ß Linux 
-                              ±b¸¹.
-        1> pdbedit -uv wisemark: ½T©w¦³¥[¤J¦¨¥\.
-    5) ¦b Windows ¤U·j´M \\<IP>\<user_name>, ¥»¨Ò: \\192.168.8.28\wisemark.
+        1> setsebool -P samba_enable_home_dirs on: å¦‚æœ SELinux æœ‰é–‹ä¸”éœ€è¦åˆ†äº«
+           æ¯å€‹ä½¿ç”¨è€…çš„å®¶ç›®éŒ„çš„è©±éœ€åŸ·è¡Œä¹‹, ä¸¦æŠŠé€™è¡ŒåŠ å…¥ /etc/rc.d/rc.local ä¸­.
+    4) smbpasswd -a foo: è¨­å®šä½¿ç”¨è€…çš„ Samba å¯†ç¢¼, è©²ä½¿ç”¨è€…éœ€å…ˆå»ºç«‹ Linux å¸³è™Ÿ.
+        1> pdbedit -uv foo: ç¢ºå®šæœ‰åŠ å…¥æˆåŠŸ.
+    5) åœ¨ Windows ä¸‹æœå°‹ \\<IP>\<user_name>, æœ¬ä¾‹: \\192.168.8.28\foo.
 
-4. ·s¼W¨ä¥L¨Ï¥ÎªÌ.
+4. æ–°å¢å…¶ä»–ä½¿ç”¨è€…
     1) expect
-    2) expect1.1> ./myadduser.exp <user_name>: ·s¼W¨Ï¥ÎªÌ.
+    2) expect1.1> ./myadduser.exp <user_name>: æ–°å¢ä½¿ç”¨è€….
     3) exit
-    4) [Notes]: SSH ©M Samba ±K½X¹w³]¬° <user_name>123@
+    4) [Notes]: SSH å’Œ Samba å¯†ç¢¼é è¨­ç‚º <user_name>123@
 
-5. ±Ò°Ê TFTP.
+5. å•Ÿå‹• TFTP
     1) yum install tftp-server:
-        ¦w¸Ë TFTP ®M¥ó, ¦¹®M¥ó¬Û¨Ì©ó xinetd ®M¥ó.
-        [Notes] ª`·N firewall ©M SELinux, ¦pªG¦³¶}, ¥i¯à·|¤£¯à¹B§@.
+        å®‰è£ TFTP å¥—ä»¶, æ­¤å¥—ä»¶ç›¸ä¾æ–¼ xinetd å¥—ä»¶.
+        [Notes] æ³¨æ„ firewall å’Œ SELinux, å¦‚æœæœ‰é–‹, å¯èƒ½æœƒä¸èƒ½é‹ä½œ.
     2) mkdir /tftpboot
-    3) vi /etc/xinetd.d/tftp: ­×§ï¤U¸ü¸ô®|
+    3) vi /etc/xinetd.d/tftp: ä¿®æ”¹ä¸‹è¼‰è·¯å¾‘
         1> server_args = -s /tftpboot
 
-6. ½s¿è /etc/profile, /etc/sudoers, /etc/bashrc, /etc/inittab
-    1) vi /etc/profile: ¼W¥[·j´M¸ô®|.
+6. ç·¨è¼¯ /etc/profile, /etc/sudoers, /etc/bashrc, /etc/inittab
+    1) vi /etc/profile: å¢åŠ æœå°‹è·¯å¾‘.
         1> export PATH=$PATH:/opt/timesys/toolchains/i686-linux/bin
            export PATH=$PATH:/opt/timesys/toolchains/armv5b-linux/bin
            export PATH=$PATH:/opt/timesys/toolchains/ppc85xx-linux/bin
            export SVN_EDITOR=vim
-           export http_proxy=http://proxy.iii.org.tw:3128
-
-    2) vi /etc/bashrc: ·s¼W§O¦W.
+    2) vi /etc/bashrc: æ–°å¢åˆ¥å.
         1> alias vi='vim'
         2> alias ll='ls -al --color'
-
     3) vi /etc/sudoers: 
-        1> ¨Ï¸s²Õ¤¤¨ä¥L¨Ï¥ÎªÌ¥i¥H¨Ï¥Î sudo, ¥»¨Ò¬° wimax ¸s²Õ.
-           %wimax  ALL=(ALL)  ALL
-
-    4) vi /etc/inittab: ³]©w¶}¾÷¬° text mode.
+        1> ä½¿ç¾¤çµ„ä¸­å…¶ä»–ä½¿ç”¨è€…å¯ä»¥ä½¿ç”¨ sudo, æœ¬ä¾‹ç‚º foo ç¾¤çµ„.
+           %foo  ALL=(ALL)  ALL
+    4) vi /etc/inittab: è¨­å®šé–‹æ©Ÿç‚º text mode.
         1> id:3:initdefault:
 
-7. ±Ò°Ê NFS.
+7. å•Ÿå‹• NFS
     1) vi /etc/exports
-        1> /home  *(rw,no_root_squash,sync,insecure) : ¤À¨É /home ¥X¥h.
-    2) chown root:wimax /home : ­×§ï /home ªº¸s²Õ.
-    3) service nfs restart : ­«·s±Ò°ÊNFSªA°È.
-    4) showmount -e localhost : ÀË¬d¬O§_¦³§â /home ¶}©ñ¥X¨Ó.
-    5) sudo mount -t nfs -o nolock 192.168.8.28:/home/chchen ./temp : ÀË¬d¬O§_¦¨¥\.
+        1> /home  *(rw,no_root_squash,sync,insecure) : åˆ†äº« /home å‡ºå».
+    2) chown root:foo /home : ä¿®æ”¹ /home çš„ç¾¤çµ„.
+    3) service nfs restart : é‡æ–°å•Ÿå‹•NFSæœå‹™.
+    4) showmount -e localhost : æª¢æŸ¥æ˜¯å¦æœ‰æŠŠ /home é–‹æ”¾å‡ºä¾†.
+    5) sudo mount -t nfs -o nolock 192.168.8.28:/home/foo ./temp : æª¢æŸ¥æ˜¯å¦æˆåŠŸ.
     6) sudo umount temp
 
-8. ±Ò°Ê FTP (pure-ftpd).
-    1) ¦]¬°¥Î yum §ä¤£¨ì pure-ftpd, ©Ò¥H½s source code.
-    2) ¤U¸ü pure-ftpd-1.0.21.tar.bz2 ¨ì /root.
-    3) tar jxvf pure-ftpd-1.0.21.tar.bz2: ¸ÑÀ£ÁY.
+8. å•Ÿå‹• FTP (pure-ftpd)
+    1) å› ç‚ºç”¨ yum æ‰¾ä¸åˆ° pure-ftpd, æ‰€ä»¥ç·¨è­¯ source code.
+    2) ä¸‹è¼‰ pure-ftpd-1.0.21.tar.bz2 åˆ° /root.
+    3) tar jxvf pure-ftpd-1.0.21.tar.bz2: è§£å£“ç¸®.
     4) cd pure-ftpd-1.0.21
     5) ./configure
     6) make install-strip
     7) cd configuration-files
     8) cp pure-ftpd.conf /etc
     9) vi /etc/pure-ftpd.conf
-        1> ChrootEveryone no ---> ChrootEveryone yes # Åı¨Ï¥ÎªÌ¥u¯àµn¤J¨ì¦U¦Ûªº
-           ®a¥Ø¿ı.
-        2> NoAnonymous no ---> NoAnonymous yes # ¤£¤¹³\°Î¦Wµn¤J.
+        1> ChrootEveryone no ---> ChrootEveryone yes # è®“ä½¿ç”¨è€…åªèƒ½ç™»å…¥åˆ°å„è‡ªçš„å®¶ç›®éŒ„.
+        2> NoAnonymous no ---> NoAnonymous yes # ä¸å…è¨±åŒ¿åç™»å…¥.
     10) chmod 755 pure-config.pl
     11) ./pure-config.pl /etc/pure-ftpd.conf
     12) cp ./pure-config.pl /usr/local/sbin/
     13) vi /etc/rc.local
-        1> ·s¼W /usr/local/sbin/pure-config.pl /etc/pure-ftpd.conf: reboot
-           ¤§«á¤~·|­«·s±Ò°Ê FTP.
+        1> æ–°å¢ /usr/local/sbin/pure-config.pl /etc/pure-ftpd.conf: reboot
+           ä¹‹å¾Œæ‰æœƒé‡æ–°å•Ÿå‹• FTP.
 
-9. ¤U¸ü toolchain.
-    1) ¤U¸ü¦ì¸m \\140.92.62.144\tools\develop_tools\cross_compile_under_linux.
-    2) tar -xvf ppc85xx-linux.tar: ¸ÑÀ£ÁY¨ì /opt/timesys/toolchains/ppc85xx-linux.
-       tar -xvf armv5b-linux.tar: ¸ÑÀ£ÁY¨ì /opt/timesys/toolchains/armv5b-linux.
-       tar -xvf i686-linux.tar: ¸ÑÀ£ÁY¨ì /opt/timesys/toolchains/i686-linux.
-    3) ¬d¬İtoolchainªº¸ô®|³]©w
+9. å®‰è£ cross-compile toolchain
+    1) tar -xvf ppc85xx-linux.tar: è§£å£“ç¸®åˆ° /opt/timesys/toolchains/ppc85xx-linux.
+       tar -xvf armv5b-linux.tar: è§£å£“ç¸®åˆ° /opt/timesys/toolchains/armv5b-linux.
+       tar -xvf i686-linux.tar: è§£å£“ç¸®åˆ° /opt/timesys/toolchains/i686-linux.
+    2) æŸ¥çœ‹toolchainçš„è·¯å¾‘è¨­å®š
        $(CROSS)gcc -print-search-dirs
 
-10. ¶}±Ò NTP service
+10. é–‹å•Ÿ NTP service
     1) vi /etc/ntp.conf
-        1> ·s¼W¤U¦æ:
+        1> æ–°å¢ä¸‹è¡Œ:
            restrict 192.168.8.0 mask 255.255.255.0 nomodify notrap
-        2> disabled ¤U¦C´X¦æ, ¦]¬°¤º³¡ºô°ì³s¤£¨ì¥~­±, ©Ò¥H¤]¨S¦³¥h§ó·sªº¥²­n¡C
+        2> disabled ä¸‹åˆ—å¹¾è¡Œ, å› ç‚ºå…§éƒ¨ç¶²åŸŸé€£ä¸åˆ°å¤–é¢, æ‰€ä»¥ä¹Ÿæ²’æœ‰å»æ›´æ–°çš„å¿…è¦.
            #server 0.rhel.pool.ntp.org
            #server 1.rhel.pool.ntp.org
            #server 2.rhel.pool.ntp.org
            #restrict 0.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
            #restrict 1.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
            #restrict 2.rhel.pool.ntp.org mask 255.255.255.255 nomodify notrap noquery
-    2) ÀË¬d /etc/services ---> ntp    123/tcp
+    2) æª¢æŸ¥ /etc/services ---> ntp    123/tcp
                              > ntp    123/udp
-    3) ÀË¬d /etc/init.d/ntpd ---> ¦s¦b
-    4) ÀË¬d chkconfig --list | grep ntpd ---> ¦s¦b
-        1> ¦pªG 3:off
+    3) æª¢æŸ¥ /etc/init.d/ntpd ---> å­˜åœ¨
+    4) æª¢æŸ¥ chkconfig --list | grep ntpd ---> å­˜åœ¨
+        1> å¦‚æœ 3:off
             chkconfig --level 3 ntpd on
-            ¦AÀË¬d chkconfig --list | grep ntpd ---> 3:on
-    5) ¤£·Q­«¶}¾÷ªº¸Ü /etc/init.d/ntpd start
+            å†æª¢æŸ¥ chkconfig --list | grep ntpd ---> 3:on
+    5) ä¸æƒ³é‡é–‹æ©Ÿçš„è©± /etc/init.d/ntpd start
 
-11. ³]©w®É°Ï¬°Taipei
+11. è¨­å®šæ™‚å€ç‚º Taipei
     1) cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
     2) vi /etc/sysconfig/clock
-        1> ­×§ï¦p¤U:
+        1> ä¿®æ”¹å¦‚ä¸‹:
            ZONE="Asia/Taipei"
            UTC=true
            ARC=false
 
-12. ³]©wSELinux
+12. è¨­å®š SELinux
     1) vi /etc/sysconfig/selinux
-        1> SELinux³]©wÀÉ½d¨Ò:
+        1> SELinuxè¨­å®šæª”ç¯„ä¾‹:
            # This file controls the state of SELinux on the system.
            # SELINUX= can take one of these three values:
            #     enforcing - SELinux security policy is enforced.
@@ -212,16 +204,16 @@
            SELINUXTYPE=targeted
     2) getenforce
 
-13. ¸T¤îroot¥HSSH¤è¦¡µn¤J
+13. ç¦æ­¢ root ä»¥ SSH æ–¹å¼ç™»å…¥
     1) vi /etc/ssh/sshd_config
-        1> ­×§ï°Ñ¼Æ PermitRootLogin:
+        1> ä¿®æ”¹åƒæ•¸ PermitRootLogin:
            #PermitRootLogin yes
            PermitRootLogin no
     2) service sshd reload
 
-14. ³]©wºô¸ô
+14. è¨­å®šç¶²è·¯
     1) vi /etc/sysconfig/network-scripts/ifcfg-eth0
-        1> ºô¸ô¥d³]©wÀÉ½d¨Ò:
+        1> ç¶²è·¯å¡è¨­å®šæª”ç¯„ä¾‹:
            DEVICE="eth0"
            NM_CONTROLLED="yes"
            ONBOOT=yes
@@ -233,41 +225,40 @@
            UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
            HWADDR=54:04:A6:F3:A0:80
     2) vi /etc/resolv.conf
-        1> DNS³]©wÀÉ½d¨Ò:
+        1> DNSè¨­å®šæª”ç¯„ä¾‹:
            # Generated by NetworkManager
            nameserver 168.95.1.1
     3) vi /etc/sysconfig/network
-        1> ¥D¾÷¦WºÙ³]©wÀÉ½d¨Ò:
+        1> ä¸»æ©Ÿåç¨±è¨­å®šæª”ç¯„ä¾‹:
            NETWORKING=yes
            HOSTNAME=MY_WORKSTATION_NAME
     4) vi /etc/hosts
-        1> ¨p¦³IP¹ïÀ³³]©wÀÉ½d¨Ò:
+        1> ç§æœ‰IPå°æ‡‰è¨­å®šæª”ç¯„ä¾‹:
            # [IP address]   [hostname]            [alias]
            127.0.0.1        MY_WORKSTATION_NAME   localhost
            ::1              MY_WORKSTATION_NAME   localhost
     5) service network restart
 
-15. Ãö³¬¤£»İ­nªºªA°È
-    1) ÀËµø©Ò¦³ªA°È
+15. é—œé–‰ä¸éœ€è¦çš„æœå‹™
+    1) æª¢è¦–æ‰€æœ‰æœå‹™
        service --status-all
        chkconfig --list
-    2) Ãö³¬ Web server
+    2) é—œé–‰ Web server
        sudo chkconfig httpd off
-    3) Ãö³¬ DHCP server
+    3) é—œé–‰ DHCP server
        sudo chkconfig dhcpd off
        sudo chkconfig dhcpd6 off
-    4) Ãö³¬ iptables
+    4) é—œé–‰ iptables
        sudo chkconfig iptables off
        sudo chkconfig ip6tables off
-    5) Ãö³¬ radvd
+    5) é—œé–‰ radvd
        sudo chkconfig radvd off
 
-16. ­Ó¤H¤Æ³]©w
+16. å€‹äººåŒ–è¨­å®š
     1) vi ~/.bashrc
         alias grep='grep --color'
     1) vi ~/.bash_profile
         PATH=$PATH:/usr/local/bin:/usr/local/sbin:$HOME/bin
         export PATH
         export PS1="[\u: \w]\n\$ "
-
 
