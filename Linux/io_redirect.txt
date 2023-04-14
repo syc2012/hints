@@ -21,3 +21,8 @@ $ command... > all.log 2>&1
 
 ## Write the output message to a file and the error message to the terminal
 $ command... 2>&1 > output.log
+
+## Write the output message to a file and terminal
+$ command... | tee output.log
+$ command... | tee -a output.log
+

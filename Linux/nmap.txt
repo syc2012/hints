@@ -1,0 +1,19 @@
+
+## scan port with detail infomation
+$ nmap -v hostname
+
+## scan IP by ping
+$ nmap -sP 192.168.x.0/24
+
+## query host name in LAN
+$ nmap -sL 192.168.x.0/24
+
+## scan port by TCP SYN
+$ nmap -sS 192.168.x.y
+
+## scan port by TCP connect
+$ nmap -sT 192.168.x.y
+
+## scan port by UDP
+$ nmap -sU 192.168.x.y
+

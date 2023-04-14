@@ -1,0 +1,19 @@
+
+## show all system configurations
+$ getconf -a
+
+## memory page size
+$ getconf PAGE_SIZE
+
+## number of clock ticks per second (Hz)
+$ getconf CLK_TCK
+
+## number of bits in a type long int (32/64)
+$ getconf LONG_BIT
+
+## maximum value of a type int
+$ getconf INT_MAX
+
+## minimum value of a type int
+$ getconf INT_MIN
+
