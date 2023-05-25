@@ -1,0 +1,29 @@
+
+## display compiler version information
+$ gcc --version
+
+## display the programs invoked by the compiler
+$ gcc -v
+
+## display the directories in the compiler's search path
+$ gcc -print-search-dirs
+
+## C preprocessing
+$ gcc -E hello.c -o hello.i
+
+## compile only
+$ gcc -S hello.i -o hello.s
+
+## compile and assemble
+$ gcc -c hello.s -o hello.o
+
+## link
+$ gcc hello.o -o hello
+
+
+## list symbols
+$ nm hello
+
+## shared object dependencies
+$ ldd hello
+
