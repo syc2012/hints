@@ -256,7 +256,10 @@
 
 16. 個人化設定
     1) vi ~/.bashrc
+        alias ll='ls -l; ls | wc -l'
+        alias la='ls -A'
         alias grep='grep --color'
+        alias sudo='sudo '
     1) vi ~/.bash_profile
         PATH=$PATH:/usr/local/bin:/usr/local/sbin:$HOME/bin
         export PATH
