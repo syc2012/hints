@@ -256,8 +256,8 @@
 
 16. 個人化設定
     1) vi ~/.bashrc
-        alias ll='ls -l; ls | wc -l'
-        alias la='ls -A'
+        alias ll='ls -l'
+        alias la='ls -Al'
         alias grep='grep --color'
         alias sudo='sudo '
     1) vi ~/.bash_profile
