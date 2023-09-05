@@ -3,6 +3,10 @@
 sudo adduser USER
 sudo adduser USER sudo
 
+## verify user's group
+id USER
+groups USER
+
 ## set user's login password
 sudo passwd USER
 
