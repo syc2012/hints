@@ -11,7 +11,7 @@
        puts "PASSWD = $PASSWD"
        puts "GROUPID = $GROUPID"
 
-       spawn /usr/sbin/adduser -d /home/$USERID $USERID -g $GROUPID
+       spawn adduser -d /home/$USERID $USERID -g $GROUPID
        expect eof
 
        spawn passwd $USERID
@@ -21,14 +21,14 @@
        send "$PASSWD\r"
        expect eof
 
-       spawn /usr/bin/pdbedit -a $USERID
+       spawn pdbedit -a $USERID
        expect "password:"
        send "$PASSWD\r"
        expect "password:"
        send "$PASSWD\r"
        expect eof
 
-       spawn /usr/sbin/setquota -u $USERID 5000000 5000000 0 0 /home
+       spawn setquota -u $USERID 5000000 5000000 0 0 /home
        expect eof
 
 2. 啟動 Quota
@@ -108,6 +108,7 @@
         安裝 TFTP 套件, 此套件相依於 xinetd 套件.
         [Notes] 注意 firewall 和 SELinux, 如果有開, 可能會不能運作.
     2) mkdir /tftpboot
+       chmod 777 /tftpboot
     3) vi /etc/xinetd.d/tftp: 修改下載路徑
         1> server_args = -s /tftpboot
 
@@ -260,8 +261,12 @@
         alias la='ls -Al'
         alias grep='grep --color'
         alias sudo='sudo '
-    1) vi ~/.bash_profile
+    2) vi ~/.bash_profile
         PATH=$PATH:/usr/local/bin:/usr/local/sbin:$HOME/bin
         export PATH
         export PS1="[\u: \w]\n\$ "
-
+    3) vi ~/.vimrc
+        set shiftwidth=4
+        set tabstop=4
+        set noautoindent
+        set nocindent
