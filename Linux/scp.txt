@@ -1,6 +1,7 @@
 
 ## copy local file to remote
-$ scp /path/file1 user@192.168.0.1:/path/file2
+$ scp /path1/file1 user@host:/path2/file2
 
 ## copy remote file to local
-$ scp user@192.168.0.1:/path/file2 /path/file1
+$ scp user@host:/path2/file2 /path1/file1
+
