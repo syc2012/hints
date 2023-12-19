@@ -23,3 +23,6 @@ Description:    Ubuntu 20.04.4 LTS
 Release:        20.04
 Codename:       focal
 
+
+## linux kernel configuration
+ls -al /usr/src/linux/.config
