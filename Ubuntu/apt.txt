@@ -47,6 +47,9 @@ sudo apt install libpcsclite-dev
 ## install mingw-w64 compiler
 sudo apt install mingw-w64
 
+## install x86 assembler
+sudo apt install nasm
+
 
 ## install TFTP
 sudo apt install tftp
@@ -90,6 +93,9 @@ sudo systemctl restart smbd.service
 ## install SVN client
 sudo apt install subversion
 
+## install expect
+sudo apt install expect
+
 ## install indent
 sudo apt install indent
 
@@ -102,3 +108,8 @@ sudo apt install htop
 ## install ntpdate
 sudo apt install ntpdate
 
+## install xorriso
+sudo apt install xorriso
+
+## install hardinfo
+sudo apt install hardinfo
