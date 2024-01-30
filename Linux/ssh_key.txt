@@ -1,0 +1,10 @@
+## Generate SSH key with ECDSA type
+$ ssh-keygen -t ecdsa -b 521
+$ ls -l ~/.ssh/
+
+## Show the public key
+$ cat ~/.ssh/id_ecdsa.pub
+
+## Convert the private key to .ppk format for Github
+$ puttygen ~/.ssh/id_ecdsa -o id_ecdsa.ppk
+
