@@ -113,3 +113,14 @@ sudo apt install xorriso
 
 ## install hardinfo
 sudo apt install hardinfo
+
+## install 行列輸入法
+sudo apt install ibus-array
+
+## install GRUB2 menu editor
+sudo update
+sudo upgrade
+sudo add-apt-repository ppa:danielrichter2007/grub-customizer -y
+sudo update
+sudo apt install grub-customizer
+grub-customizer -v
