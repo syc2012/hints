@@ -32,3 +32,11 @@ Codename:       focal
 
 ## linux kernel configuration
 ls -al /usr/src/linux/.config
+
+
+## start/stop samba service permanently
+$ sudo systemctl start smbd
+$ sudo systemctl enable smbd
+
+$ sudo systemctl disable smbd
+$ sudo systemctl stop smbd

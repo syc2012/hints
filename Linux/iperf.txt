@@ -1,0 +1,13 @@
+## TCP server
+$ iperf -s -p 79 -w 2m -i 1
+
+## TCP client
+$ iperf -c 192.168.100.88 -p 79 -w 2m -i 1 -t 60
+
+
+## UDP server
+$ iperf -s -u -p 79 -i 1
+
+## UDP client
+$ iperf -c 192.168.100.88 -u -p 79 -l 1400 -b 10m -i 1-t 60
+

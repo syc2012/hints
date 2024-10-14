@@ -1,35 +1,35 @@
 
 Text attributes:
 
-    {ESC}[0m    0    All attributes off    {ESC}[m
-    {ESC}[1m    1    Bold on               {ESC}[m
-    {ESC}[4m    4    Underscore            {ESC}[m
-    {ESC}[5m    5    Blink on              {ESC}[m
-    {ESC}[7m    7    Reverse video on      {ESC}[m
+    [0m    0    All attributes off    [m
+    [1m    1    Bold on               [m
+    [4m    4    Underscore            [m
+    [5m    5    Blink on              [m
+    [7m    7    Reverse video on      [m
 
 
 
 Foreground colors:
 
-    {ESC}[30m    30 Black      {ESC}[1m Bright Black      {ESC}[m
-    {ESC}[31m    31 Red        {ESC}[1m Bright Red        {ESC}[m
-    {ESC}[32m    32 Green      {ESC}[1m Bright Green      {ESC}[m
-    {ESC}[33m    33 Yellow     {ESC}[1m Bright Yellow     {ESC}[m
-    {ESC}[34m    34 Blue       {ESC}[1m Bright Blue       {ESC}[m
-    {ESC}[35m    35 Magenta    {ESC}[1m Bright Magenta    {ESC}[m
-    {ESC}[36m    36 Cyan       {ESC}[1m Bright Cyan       {ESC}[m
-    {ESC}[37m    37 White      {ESC}[1m Bright White      {ESC}[m
+    [30m    30 Black      [1m Bright Black      [m
+    [31m    31 Red        [1m Bright Red        [m
+    [32m    32 Green      [1m Bright Green      [m
+    [33m    33 Yellow     [1m Bright Yellow     [m
+    [34m    34 Blue       [1m Bright Blue       [m
+    [35m    35 Magenta    [1m Bright Magenta    [m
+    [36m    36 Cyan       [1m Bright Cyan       [m
+    [37m    37 White      [1m Bright White      [m
 
 
 
 Background colors:
 
-    {ESC}[40m      40 Black      {ESC}[m
-    {ESC}[41m      41 Red        {ESC}[m
-    {ESC}[42m      42 Green      {ESC}[m
-    {ESC}[43m      43 Yellow     {ESC}[m
-    {ESC}[44m      44 Blue       {ESC}[m
-    {ESC}[45m      45 Magenta    {ESC}[m
-    {ESC}[46m      46 Cyan       {ESC}[m
-    {ESC}[1;47m    47 White      {ESC}[m
+    [40m      40 Black      [m
+    [41m      41 Red        [m
+    [42m      42 Green      [m
+    [43m      43 Yellow     [m
+    [44m      44 Blue       [m
+    [45m      45 Magenta    [m
+    [46m      46 Cyan       [m
+    [47m      47 White      [m
 
