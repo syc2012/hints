@@ -1,0 +1,43 @@
+[ Build a RESTful API test environment ]
+
+sudo rpm install -g json-server
+sudo rpm install -g faker
+
+json-server --watch db.json
+
+curl http://localhost:3000/movies/1
+
+
+[ Example db.json ]
+
+{
+  "movies": [
+    {
+      "id": 1,
+      "name": "Toys digital",
+      "director": "Liam Kulas",
+      "rating": 5.4
+    },
+    {
+      "id": 2,
+      "name": "definition",
+      "director": "Vergie Parker",
+      "rating": 3.6
+    },
+    {
+      "id": 3,
+      "name": "interface",
+      "director": "Herman Farrell",
+      "rating": 9.3
+    }
+  ]
+}
+
+
+[ Troubleshooting ]
+
+Node.js Cannot find module 'xxx'
+
+export NODE_PATH=/.../lib/node_modules/
+
+

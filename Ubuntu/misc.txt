@@ -1,13 +1,21 @@
 
+## install .deb package
+$ sudo dpkg -i FILE_NAME.deb
+
+## uninstall .deb package
+$ sudo dpkg -r PACKAGE_NAME
+
+## list installed .deb packages
+$ dpkg -l
+
 ## extract .deb package
 $ ar x FILE_NAME.deb
 
+## list all installed kernels
+$ dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules' | awk '{ print $2 }'
 
-## adjust .bashrc
-$ vi ~/.bashrc
-PS1="[\u: \w]\n\$ "
-alias ll='ls -l'
-alias sudo='sudo '
+## uninstall old kernels
+$ sudo apt purge linux-headers-6.8.0-47 linux-headers-6.8.0-47-generic linux-image-6.8.0-47-generic linux-modules-6.8.0-47-generic linux-modules-extra-6.8.0-47-generic
 
 
 ## sudo without password
@@ -40,3 +48,21 @@ $ sudo systemctl enable smbd
 
 $ sudo systemctl disable smbd
 $ sudo systemctl stop smbd
+
+
+## start/stop printer service permanently
+$ sudo systemctl start cups
+$ sudo systemctl enable cups
+
+$ sudo systemctl stop cups
+$ sudo systemctl disable cups
+
+
+## start/stop network host discovery permanently
+$ sudo systemctl unmask avahi-daemon
+$ sudo systemctl enable avahi-daemon
+$ sudo systemctl start avahi-daemon
+
+$ sudo systemctl stop avahi-daemon
+$ sudo systemctl disable avahi-daemon
+$ sudo systemctl mask avahi-daemon

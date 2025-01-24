@@ -1,0 +1,14 @@
+cp id_ecdsa.foo id_ecdsa.foo.pub ~/.ssh/
+
+vi ~/.ssh/config-github-foo
+Host github.com
+    HostName github.com
+    Port 22
+    User git
+    IdentityFile ~/.ssh/id_ecdsa.foo
+
+cd /github-foo/repository
+git config core.sshCommand "ssh -F ~/.ssh/config-github-foo"
+git remote set-url origin git@github.com:foo/repository.git
+git remote -v
+

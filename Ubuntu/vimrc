@@ -1,0 +1,18 @@
+set nocompatible
+
+colorscheme koehler
+
+set directory=.,$TEMP
+set hlsearch
+set nobackup
+set shiftwidth=4
+set tabstop=4
+"set expandtab
+set noautoindent
+set nocindent
+set nowrap
+set visualbell
+set guifont=Fixedsys:h8
+
+map <MiddleMouse> <Nop>
+map! <MiddleMouse> <Nop>
