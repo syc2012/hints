@@ -1,0 +1,7 @@
+
+## convert chinese font from Big-5 to UTF-8
+$ iconv -f BIG-5 -t UTF-8 input.txt > output.txt
+
+## convert chinese font from UTF-8 to Big-5
+$ iconv -f UTF-8 -t BIG-5 input.txt > output.txt
+

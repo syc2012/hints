@@ -1,4 +1,14 @@
 
+## set root password
+sudo passwd root
+
+## test root password
+su -
+
+## clean root password
+sudo passwd -dl root
+
+
 ## add an user with sudo group
 sudo adduser USER
 sudo adduser USER sudo

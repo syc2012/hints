@@ -54,6 +54,17 @@ sudo apt install nasm
 sudo apt intall net-tools
 
 
+## install SSH server
+sudo apt install openssh-server
+
+sudo vi /etc/ssh/sshd_config
+Port 22
+PasswordAuthentication yes
+PermitRootLogin yes
+
+sudo /etc/init.d/ssh restart
+
+
 ## install TFTP
 sudo apt install tftp
 sudo apt install tftpd
