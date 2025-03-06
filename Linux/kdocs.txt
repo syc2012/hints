@@ -10,3 +10,6 @@ Documentation/admin-guide/devices.txt
 
 ## Device tree examples
 Documentation/devicetree/bindings/
+
+## Kernel Makefiles
+Documentation/kbuild/makefiles.txt
