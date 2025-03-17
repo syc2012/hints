@@ -132,8 +132,19 @@ sudo apt install xorriso
 ## install hardinfo
 sudo apt install hardinfo
 
+## install HDL tools
+sudo apt install iverilog
+sudo apt install gtkwave
+which iverilog
+which vvp
+which gtkwave
+
 ## install 行列輸入法
 sudo apt install ibus-array
+sudo vi /etc/environment
+GTK_IM_MODULE=ibus
+QT_IM_MODULE=ibus
+XMODIFIERS=@im=ibus
 
 ## install GRUB2 menu editor
 sudo update
@@ -142,3 +153,11 @@ sudo add-apt-repository ppa:danielrichter2007/grub-customizer -y
 sudo update
 sudo apt install grub-customizer
 grub-customizer -v
+
+## install Wireshark
+sudo apt install wireshark
+sudo dpkg-reconfigure wireshark-common
+sudo adduser $USER wireshark
+
+## install Hex editor
+sudo apt install ghex

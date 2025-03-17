@@ -42,6 +42,12 @@ Codename:       focal
 ls -al /usr/src/linux/.config
 
 
+## downgrade kernel version
+wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
+chmod +x ubuntu-mainline-kernel.sh
+ubuntu-mainline-kernel.sh -i X.Y.Z
+
+
 ## start/stop samba service permanently
 $ sudo systemctl start smbd
 $ sudo systemctl enable smbd
@@ -66,3 +72,18 @@ $ sudo systemctl start avahi-daemon
 $ sudo systemctl stop avahi-daemon
 $ sudo systemctl disable avahi-daemon
 $ sudo systemctl mask avahi-daemon
+
+
+## auto start script
+$ sudo vi /etc/systemd/system/Hello.service
+[Unit]
+Description=Hello
+
+[Service]
+Type=oneshot
+ExecStart=/path/to/your/script.sh
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable Hello.service
+$ sudo systemctl start Hello.service
+$ sudo systemctl status Hello.service

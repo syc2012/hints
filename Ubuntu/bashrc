@@ -28,5 +28,6 @@ alias sudo='sudo '
 alias gpull='git pull origin master'
 alias gpush='git push origin master'
 alias gstat='git status -uno .'
+alias kmsg='sudo dmesg | tail -10'
 
 
