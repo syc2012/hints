@@ -1,0 +1,33 @@
+
+/proc/cmdline
+    kernel boot parameters
+
+/proc/cpuinfo
+    processor information
+
+/proc/devices
+    device major number
+
+/proc/interrupts
+    interrupts per CPU per IO devices
+
+/proc/iomem
+    IO memory map
+
+/proc/kmsg
+    kernel messages
+
+/proc/meminfo
+    memory usage
+
+/proc/net/arp
+    ARP table
+
+/proc/net/route
+    IP routing table
+
+/proc/partitions
+    disk partitions
+
+/proc/version
+    kernel version

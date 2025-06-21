@@ -1,15 +1,6 @@
 
-openssl verify [-CApath directory]
-               [-CAfile file]
-               [-purpose purpose]
-               [-untrusted file]
-               [-help]
-               [-issuer_checks]
-               [-verbose]
-               [-] [certificates] 
-
-## Verify certificate
-$ openssl verify -CAfile root.pem spooky.pem
+## Generate self-signed certificate and private key
+$ openssl req -nodes -x509 -newkey rsa:4096 -days 7300 -keyout root_prikey.pem -out root_cert.pem
 
 
 ## Convert file format
@@ -19,13 +10,13 @@ $ openssl x509 -inform DER -in xxx.der -outform PEM -out xxx.pem
 $ openssl x509 -modulus -inform DER -in certsigned.der
 
 
-## Generate RSA key
-$ openssl genrsa -out private_key.pem -f4 1024
-$ openssl rsa -in private_key.pem -pubout
+## Generate RSA key pair
+$ openssl genrsa -out root_prikey.pem 3072
+$ openssl rsa -in root_prikey.pem -pubout -out root_pubkey.pem
 
 
 ## Self-signed
-$ openssl req -new -x509 -key prikey.pem -out cacert.pem -days 7300
+$ openssl req -new -x509 -key root_prikey.pem -out root_cert.pem -days 7300
 
 $ openssl req -x509 -nodes -days 7300 \
               -subj '/C=TW/ST=Taiwan/L=Taipei/CN=www.iii.org.tw' \
@@ -34,13 +25,18 @@ $ openssl req -x509 -nodes -days 7300 \
 
 
 ## Signed by CA
-$ openssl req -new -key xxx.pem -out xxx.csr
+$ openssl genrsa -out user_prikey.pem -f4 1024
+$ openssl req -new -key user_prikey.pem -out user_request.csr
 $ openssl x509 -req \
                -days 3650 \
                -CA root_cert.pem \
                -CAkey root_prikey.pem \
-               -in xxx.csr \
-               -out xxx.pem
+               -in user_request.csr \
+               -out user_cert.pem
+
+
+## Verify certificate
+$ openssl verify -CAfile root_cert.pem user_cert.pem
 
 
 ## Private key
@@ -60,6 +56,8 @@ $ openssl x509 -inform PEM -in xxx.pem -outform PEM -pubkey
 $ openssl rsa -inform DER -in cert_public_key.der -inform PEM -in private_key.pem -check
 $ openssl rsa -inform PEM -in cert_public_key.pem -inform PEM -in private_key.pem -check
 
+$ openssl rsa -check -in private_key.pem
+
 
 ## Public key encryption
 $ openssl rsautl -pubin -inkey cert_public_key.pem -encrypt -in xxx.in -out xxx.out
@@ -67,4 +65,14 @@ $ openssl rsautl -pubin -inkey cert_public_key.pem -encrypt -in xxx.in -out xxx.
 
 ## Private key decryption
 $ openssl rsautl -inkey private_key.pem -decrypt -in xxx.in -out xxx.out
+
+
+## Show certificate information
+$ openssl x509 -inform der -noout -text -in xxx.der
+$ openssl x509 -inform pem -noout -text -in xxx.pem
+
+
+## SSL/TSL client connection test
+$ openssl s_client -connect IPADDRESS:PORT
+
 
