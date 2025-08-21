@@ -1,19 +1,18 @@
 
-## ¦C¥X±Ò°Ê¤¤ªºªA°È
+## åˆ—å‡ºå•Ÿå‹•ä¸­çš„æœå‹™
 > net start
 
-## °±¤îªA°È
+## åœæ­¢æœå‹™
 > net stop SERVICENAME
 
-## ±Ò°ÊªA°È
+## å•Ÿå‹•æœå‹™
 > net start SERVICENAME
 
-## ³]©wªA°È¬°°±¥Î
+## è¨­å®šæœå‹™ç‚ºåœç”¨
 > sc config SERVICENAME start= disabled
 
-## ³]©wªA°È¬°±Ò¥Î
+## è¨­å®šæœå‹™ç‚ºå•Ÿç”¨
 > sc config SERVICENAME start= demand
 
-## ³]©wªA°È¬°¦Û°Ê±Ò°Ê
+## è¨­å®šæœå‹™ç‚ºè‡ªå‹•å•Ÿå‹•
 > sc config SERVICENAME start= auto
-

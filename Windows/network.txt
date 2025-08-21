@@ -1,30 +1,30 @@
 
-## ¬d¸ß IP address
+## æŸ¥è©¢ IP address
 > netsh interface ip show address
 
-## ³]©w IP address
-> netsh interface ip set address "°Ï°ì³s½u" static 192.168.2.100 255.255.255.0
+## è¨­å®š IP address
+> netsh interface ip set address "å€åŸŸé€£ç·š" static 192.168.2.100 255.255.255.0
 
-## ³]©w¸ô¥Ñ
-> netsh interface ip set address "°Ï°ì³s½u" ga=192.168.2.1 gw=1
+## è¨­å®šè·¯ç”±
+> netsh interface ip set address "å€åŸŸé€£ç·š" ga=192.168.2.1 gw=1
 
-## ³]©w DHCP
-> netsh interface ip set address "°Ï°ì³s½u" source=dhcp
+## è¨­å®š DHCP
+> netsh interface ip set address "å€åŸŸé€£ç·š" source=dhcp
 
-## ³]©w DNS
-> netsh interface ip set dnsservers "°Ï°ì³s½u" static 8.8.8.8 primary
+## è¨­å®š DNS
+> netsh interface ip set dnsservers "å€åŸŸé€£ç·š" static 8.8.8.8 primary
 
-## ¬d¸ß MTU
+## æŸ¥è©¢ MTU
 > netsh interface ipv4 show subinterfaces
 
-## ­×§ï MTU
-> netsh interface ipv4 set subinterface "°Ï°ì³s½u" mtu=9000 store=persistent
+## ä¿®æ”¹ MTU
+> netsh interface ipv4 set subinterface "å€åŸŸé€£ç·š" mtu=9000 store=persistent
 
-## ¶×¥Xºô¸ô³]©w
+## åŒ¯å‡ºç¶²è·¯è¨­å®š
 > netsh -c interface dump > C:\netset.txt
 
-## ¶×¤Jºô¸ô³]©w
+## åŒ¯å…¥ç¶²è·¯è¨­å®š
 > netsh -f C:\netset.txt
 
-## Åã¥Ü©Ò¦³ªººô¸ô¤¶­±¥d
+## é¡¯ç¤ºæ‰€æœ‰çš„ç¶²è·¯ä»‹é¢å¡
 > getmac /v

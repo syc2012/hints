@@ -1,22 +1,22 @@
-## ¥H¨t²ÎºÞ²z­û¨­¥÷°õ¦æ
+## ä»¥ç³»çµ±ç®¡ç†å“¡èº«ä»½åŸ·è¡Œ
 > diskpart
 
 
-## Åã¥Ü©Ò¦³ºÏºÐ
+## é¡¯ç¤ºæ‰€æœ‰ç£ç¢Ÿ
 DISKPART> list disk
 
-## Åã¥Ü©Ò¦³ºÏºÐ°Ï (C, D, ...)
+## é¡¯ç¤ºæ‰€æœ‰ç£ç¢Ÿå€ (C, D, ...)
 DISKPART> list volume
 
-## Åã¥Ü«ü©wºÏºÐªººÏºÐ¤À³Î
+## é¡¯ç¤ºæŒ‡å®šç£ç¢Ÿçš„ç£ç¢Ÿåˆ†å‰²
 DISKPART> select disk 0
 DISKPART> list partition
 
-## ²M°£«ü©wºÏºÐªººÏºÐ¤À³Î
+## æ¸…é™¤æŒ‡å®šç£ç¢Ÿçš„ç£ç¢Ÿåˆ†å‰²
 DISKPART> select disk 1
 DISKPART> clean
 
-## ¦b«ü©wºÏºÐ¤W«Ø¥ß¥D­n¤À³ÎºÏ°Ï
+## åœ¨æŒ‡å®šç£ç¢Ÿä¸Šå»ºç«‹ä¸»è¦åˆ†å‰²ç£å€
 DISKPART> select disk 1
 DISKPART> create partition primary
 DISKPART> format fs=ntfs

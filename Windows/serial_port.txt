@@ -1,9 +1,8 @@
 
-²M°£µL¥Îªº serial port:
+æ¸…é™¤ç„¡ç”¨çš„ serial port:
 
 
-## ±Ò°Ê¸Ë¸mºŞ²z­û
+## å•Ÿå‹•è£ç½®ç®¡ç†å“¡
 > devmgmt.msc
 
-  ÀËµø -> Åã¥ÜÁôÂÃ¸Ë¸m (Show hidden devices)
-
+  æª¢è¦– -> é¡¯ç¤ºéš±è—è£ç½® (Show hidden devices)
