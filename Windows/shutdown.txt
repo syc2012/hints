@@ -1,9 +1,9 @@
 
-## 登出
+## 蕞
 > shutdown -i
 
-## 10秒後關機
+## 10蕞蕞
 > shutdown -s -t 10
 
-## 重新開機
+## 蕞蕞
 > shutdown -r

@@ -61,14 +61,47 @@ svn cp -r 344 http://192.168.2.101/project/trunk http://192.168.2.101/project/ta
 svn cp http://192.168.2.101/project/trunk http://192.168.2.101/project/branches/debug -m 'Branch project for debug'
 
 
-[11] Backup and restore
+[11] Setup a SVN server
+
+mkdir /volume1/svn
+cd /volume1/svn
+
+## create a new repository
+svnadmin create test
+chmod -R apache:apache test
+
+## edit httpd config
+vi /etc/httpd/conf.d/subversion.conf
+
+<Location /svn/test>
+  DAV svn
+  SVNPath /volume1/svn/test
+  AuthType Basic
+  AuthName "Subversion repository"
+  AuthUserFile /volume1/svn/auth-conf
+  #<LimitExcept GET PROPFIND OPTIONS REPORT>
+    Require valid-user
+  #</LimitExcept>
+</Location>
+
+## manage user(s)
+vi /volume1/svn/auth-conf
+
+## restart http server
+apachectl restart
+
+
+[12] Backup and restore
+
+## verify a repository
+svnadmin verify /volume1/svn/test
 
 ## backup a repository
-svnadmin dump /volume1/svn/test/ > test_repos.dump
+svnadmin dump /volume1/svn/test > test_repos.dump
 
 ## restore a repository
-cd /volume2/svn
-svnadmin create test
+mkdir /volume2/svn
+svnadmin create /volume2/svn/test
 svnadmin load /volume2/svn/test < test_repos.dump
-chmod own.own /volume1/svn/test -R
+chmod -R apache:apache /volume2/svn/test
 
