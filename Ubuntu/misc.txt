@@ -48,12 +48,20 @@ chmod +x ubuntu-mainline-kernel.sh
 ubuntu-mainline-kernel.sh -i X.Y.Z
 
 
+## start/stop tftp service permanently
+$ sudo systemctl start tftpd-hpa
+$ sudo systemctl enable tftpd-hpa
+
+$ sudo systemctl stop tftpd-hpa
+$ sudo systemctl disable tftpd-hpa
+
+
 ## start/stop samba service permanently
 $ sudo systemctl start smbd
 $ sudo systemctl enable smbd
 
-$ sudo systemctl disable smbd
 $ sudo systemctl stop smbd
+$ sudo systemctl disable smbd
 
 
 ## start/stop printer service permanently

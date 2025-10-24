@@ -1,0 +1,11 @@
+
+## check the name server settings
+$ sudo vi /etc/resolv.conf
+
+
+## disable the reverse DNS Lookup
+$ sudo vi /etc/ssh/sshd_config
+UseDNS no
+
+$ sudo systemctl restart sshd.service
+

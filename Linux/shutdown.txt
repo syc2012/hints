@@ -1,0 +1,15 @@
+
+## power off immediately
+$ sudo shutdown -h now
+
+## power off after 30 minutes
+$ sudo shutdown -h +30
+
+## power off at 9:00 p.m.
+$ sudo shutdown -h 21:00
+
+## cancel shutdown
+$ sudo shutdown -c
+
+## reboot
+$ sudo shutdown -r

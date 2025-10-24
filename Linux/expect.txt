@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+
+set timeout -1
+set USER [lindex $argv 0]
+
+if { [string compare $USER ""] == 0 } {
+ set USER "root"
+}
+
+# local operation
+spawn ls -al
+expect eof
+
+# remote operation
+spawn ssh $USER@192.168.10.123
+expect "password"
+send "12345678\r"
+expect "$ "
+send "ls -al\r"
+expect "$ "
+send "exit\r"
+expect eof
