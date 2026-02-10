@@ -27,3 +27,8 @@ $ nm hello
 ## shared object dependencies
 $ ldd hello
 
+## display libc version
+$ /lib/x86_64-linux-gnu/libc.so.6
+
+## display library search path
+$ ld --verbose | grep SEARCH_DIR | tr -s ' ;' \\012
