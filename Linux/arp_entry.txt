@@ -1,0 +1,10 @@
+## Add a permenent static ARP entry
+$ ip neigh add <IPADDRESS> lladdr <MACADDRESS> dev <INTERFACE> nud permanent
+
+
+## Display the current ARP entries
+$ ip neigh show
+
+
+## Delete a specific entry
+$ ip neigh del <IPADDRESS> dev <INTERFACE>
