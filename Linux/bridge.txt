@@ -6,23 +6,22 @@
  +----+----+     +----+----+              +----+----+     +----+----+
       | 10.1.9.2      | 10.1.9.3               | 10.1.9.4      | 10.1.9.5
   ==============================      ==============================
-                             | 10.1.9.1 |
+                             |          |
                           +--+----------+-+
                           | eth0     eth1 |
                           |    bridge01   |
                           |               |
                           +---------------+
+                               10.1.9.1
 
-
-$ ifconfig eth0 0 down
-$ ifconfig eth1 0 down
+$ ifconfig eth0 0
+$ ifconfig eth1 0
 
 $ brctl addbr br0
-
 $ brctl addif br0 eth0
 $ brctl addif br0 eth1
 
-
+## optional: assign IP address to br0 for management
 $ ifconfig br0 10.1.9.1 netmask 255.255.255.0 broadcast 10.1.9.255 up
 
 $ ifconfig br0
