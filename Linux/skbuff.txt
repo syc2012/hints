@@ -60,7 +60,7 @@ unsigned char *skb_put(struct sk_buff *skb, unsigned int len);
          |                |     tail ->+----------------+ \
          |                |            |                | | +len
          |                |            |                | |
-  tail ->+----------------+            |                | /
+ *tail ->+----------------+            |                | /
          |                |            |                |
          |                |            |                |
          |                |            |                |
@@ -87,7 +87,7 @@ unsigned char *skb_push(struct sk_buff *skb, unsigned int len);
   data ->+----------------+            |                | \
          |                |            |                | | +len
          |                |            |                | |
-         |                |     data ->+----------------+ /
+         |                |    *data ->+----------------+ /
          |                |            |                |
   head ->+----------------+     head ->+----------------+
           Low Memory                    Low Memory
@@ -106,7 +106,7 @@ unsigned char *skb_pull(struct sk_buff *skb, unsigned int len);
          |                |            |                |
          |                |            |                |
          |                |            |                |
-         |                |     data ->+----------------+ \
+         |                |    *data ->+----------------+ \
          |                |            |                | | +len
          |                |            |                | |
   data ->+----------------+            |                | /
