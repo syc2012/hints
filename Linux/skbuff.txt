@@ -24,7 +24,7 @@ struct sk_buff *alloc_skb(unsigned int size, gfp_t priority);
                      |                | |
                      |                | |
                      |                | |
-                     |                | | size (256-byte alignment)
+                     |   tail room    | | size (256-byte alignment)
                      |                | |
                      |                | |
                      |                | |
@@ -41,12 +41,12 @@ struct sk_buff *dev_alloc_skb(unsigned int size);
                |                |           |
                |                |           |
                |                |           |
-               |                |           |
+               |   tail room    |           |
                |                |           | size (256-byte alignment)
                |                |           |
                |                |           |
   data, tail ->+----------------+ \         |
-               |                | | 16-byte |
+               |   head room    | | 16-byte |
         head ->+----------------+ /         /
                 Low Memory
 
