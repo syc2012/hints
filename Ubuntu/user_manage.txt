@@ -25,6 +25,10 @@ sudo passwd USER
 sudo smbpasswd -a USER
 
 
+## list Samba users
+sudo pdbedit -L -v
+
+
 ## hide an user from login screen
 sudo ls -l /var/lib/AccountsService/users/
 sudo cp /var/lib/AccountsService/users/foo /var/lib/AccountsService/users/bar
