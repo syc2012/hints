@@ -1,0 +1,14 @@
+
+## make a named pipe
+mkfifo FILENAME
+
+## delete a named pipe
+rm FILENAME
+
+## inter-processes communication
+echo "Hello world!" > FILENAME
+cat FILENAME
+
+## continue to output the named pipe
+tail -f FILENAME
+

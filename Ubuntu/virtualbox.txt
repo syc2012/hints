@@ -1,0 +1,12 @@
+## install VirtualBox
+$ sudo apt update
+$ sudo apt install virtualbox
+$ sudo apt install virtualbox-ext-pack
+
+
+## can't find the USB device
+$ sudo adduser myname vboxusers
+$ reboot
+$ groups
+
+
