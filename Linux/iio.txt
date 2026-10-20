@@ -1,0 +1,13 @@
+
+## dump IIO devices
+iio_info
+
+## read and write IIO attributes
+iio_attr -d DEVICE ATTR
+iio_attr -d DEVICE ATTR VALUE
+iio_attr -c DEVICE CHANNEL ATTR 
+iio_attr -c DEVICE CHANNEL ATTR VALUE
+
+
+## dump device tree
+dtc -I fs /proc/device-tree
